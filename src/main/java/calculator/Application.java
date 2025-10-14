@@ -1,12 +1,14 @@
 package calculator;
 
+import calculator.io.Input;
 import camp.nextstep.edu.missionutils.Console;
 
 class Calculator {
+    private Input input = new Input();
     public void run() {
         openingMent();
         //입력받기
-        String input = Console.readLine();
+        input.inputString();
 
         //결과출력
         int output =0;
