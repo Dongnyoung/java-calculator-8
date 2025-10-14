@@ -82,7 +82,11 @@ class Calculator {
 public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
-        Calculator calc = new Calculator();
-        calc.run();
+        try {
+            new Calculator().run();
+        }
+        finally {
+            Console.close();  //자원정리
+        }
     }
 }
