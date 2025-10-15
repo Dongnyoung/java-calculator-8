@@ -1,10 +1,12 @@
 package calculator;
 
 import calculator.io.Input;
+import calculator.io.Output;
 import camp.nextstep.edu.missionutils.Console;
 
 class Calculator {
     private Input input = new Input();
+    private Output output = new Output();
     public void run() {
         openingMent();
         //입력받기
@@ -13,8 +15,7 @@ class Calculator {
         int ans = validAndParsing(inputString);
 
         //결과출력
-        int output =ans;
-        System.out.println("결과 : "+output);
+        output.printAnswer(ans);
     }
 
     private static int validAndParsing(String inputString) {
