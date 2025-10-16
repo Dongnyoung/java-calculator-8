@@ -1,26 +1,38 @@
 package calculator;
 
+import calculator.domain.Validator;
+import calculator.domain.parser.CommaColonParser;
+import calculator.domain.parser.CustomParser;
 import calculator.io.Input;
 import calculator.io.Output;
 import camp.nextstep.edu.missionutils.Console;
 
+
+
+
+
 class Calculator {
     private Input input = new Input();
     private Output output = new Output();
+    private Validator validator = new Validator();
+    private CustomParser customParser = new CustomParser();
+    private CommaColonParser commaColonParser = new CommaColonParser();
     public void run() {
         openingMent();
         //입력받기
         String inputString = input.inputString();
 
-        int ans = validAndParsing(inputString);
+        int ans = parse(inputString);
 
         //결과출력
         output.printAnswer(ans);
     }
 
-    private static int validAndParsing(String inputString) {
-        if(inputString ==null || inputString.isEmpty()) return 0;
-        String str = inputString;
+    private int parse(String inputString) {
+        String str = validator.valid(inputString);
+        if(str.equals("0")){
+            return 0;
+        }
         int sum = 0;
         //입력검사
         //콤마,콜론
@@ -29,37 +41,7 @@ class Calculator {
         String firstCustomRule = "//";
 
         if(str.startsWith(firstCustomRule)) {
-            int firstCustomRuleIndex = str.indexOf(firstCustomRule);
-            char[] charList = str.toCharArray();
-            boolean flag = false;
-            int secondCustomRuleIndex=0;
-            int endIndex = 0;
-            for(int i=2;i<charList.length;i++) {
-                if(charList[i]=='\\') {
-                    if (i+1<charList.length && charList[i + 1] == 'n') {
-                        flag = true;
-                        endIndex = i+2;
-                        secondCustomRuleIndex=i-1;
-                        break;
-                    }
-                }
-
-
-            }
-            if(!flag){
-                throw new IllegalArgumentException("잘못된 형식의 커스텀 구분자");
-            }
-
-            String custom = String.valueOf(charList[secondCustomRuleIndex]);//커스텀 구분자
-            if(custom.length()!=1){
-                throw new IllegalArgumentException("커스텀 구분자는 단일 문자만 허용");
-            }
-            if(endIndex == charList.length){
-                //빈 문자열
-                return 0;
-            }
-            str = inputString.substring(endIndex);
-            String[] tokens = str.split(custom);
+            String[] tokens = customParser.parsing(str);
             for (String t : tokens) {
                 if (t.isEmpty()) {
                     throw new IllegalArgumentException("구분자 사이에 빈 문자열이 있음");
@@ -75,7 +57,7 @@ class Calculator {
             }
         }
         else {
-            String[] tokens = str.split(commaColonRule);
+            String[] tokens = commaColonParser.parsing(str);
 
             for (String t : tokens) {
                 if (t.isEmpty()) {
