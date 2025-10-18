@@ -1,6 +1,6 @@
 package calculator.domain;
 
-public class Validator{
+public class InputValidator {
     private String str;
 
     public String valid(String inputString){
