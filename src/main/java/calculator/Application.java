@@ -1,6 +1,12 @@
 package calculator;
 
 import calculator.domain.InputValidator;
+import calculator.domain.TokenValidator.CompositeValidator;
+import calculator.domain.TokenValidator.NullValidator;
+import calculator.domain.TokenValidator.NumberTokenValidator;
+import calculator.domain.TokenValidator.TokenValidator;
+import calculator.domain.operation.Add;
+import calculator.domain.operation.Operator;
 import calculator.domain.parser.CommaColonParser;
 import calculator.domain.parser.CustomParser;
 import calculator.domain.parser.Parser;
@@ -8,34 +14,22 @@ import calculator.io.Input;
 import calculator.io.Output;
 import camp.nextstep.edu.missionutils.Console;
 
-
-class Add{
-    private int sum;
-    public int calc(String[] tokens) {
-        for (String t : tokens) {
-            if (t.isEmpty()) {
-                throw new IllegalArgumentException("구분자 사이에 빈 문자열이 있음");
-            }
-            if (!t.matches("\\d+")) // "\\d+"는 정규식, 숫자 한개이상으로만 포함된 문자열
-            {
-                if (t.matches("-\\d+")) {
-                    throw new IllegalArgumentException("음수는 허용되지않음");
-                }
-                throw new IllegalArgumentException("숫자가 아닌 값이 포함되어 있음 " + t);
-            }
-            sum += Integer.parseInt(t);
-        }
-        return sum;
-    }
-}
+import java.util.ArrayList;
+import java.util.List;
 
 
 class Calculator {
-    private Input input = new Input();
-    private Output output = new Output();
-    private InputValidator inputValidator = new InputValidator();
-    private Parser parser;
-    private Add add = new Add();
+    //의존성 주입되면 바뀌지않도록 final 이용
+    private final Input input;
+    private final Output output;
+    private final InputValidator inputValidator;
+    private final Operator operator;
+    public Calculator() {
+        this.input = new Input();
+        this.output = new Output();
+        this.inputValidator = new InputValidator();
+        this.operator=new Add(); //해당 문제에서 더하기만 수행하기에
+    }
     public void run() {
         openingMent();
         //입력받기
@@ -48,15 +42,31 @@ class Calculator {
     }
 
     private int parse(String inputString) {
+        // 1) 기본 검증
         String str = inputValidator.valid(inputString);
         if(str.equals("0")){
             return 0;
         }
-        int sum = 0;
+
+        //2) 파서 선택
         Parser parser = resolver(str);
+
+        //3) 토큰화
         String[] tokens = parser.parsing(str);
-        sum = add.calc(tokens);
-        return sum;
+
+        //4) 토큰 검증
+        TokenValidator validator = validatorResolver();
+        validator.valid(tokens);
+
+        //5) 계산
+        return operator.calc(tokens);
+    }
+    private TokenValidator validatorResolver(){
+        List<TokenValidator> tokenValidatorList = new ArrayList<>();
+        tokenValidatorList.add(new NumberTokenValidator());
+        tokenValidatorList.add(new NullValidator());
+
+        return new CompositeValidator(tokenValidatorList);
     }
     private Parser resolver(String input) {
         // 커스텀 규칙 확인
