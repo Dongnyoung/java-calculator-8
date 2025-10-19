@@ -1,11 +1,11 @@
 package calculator;
 
 import calculator.domain.InputValidator;
-import calculator.domain.TokenValidator.CompositeValidator;
-import calculator.domain.TokenValidator.NullValidator;
-import calculator.domain.TokenValidator.NumberTokenValidator;
-import calculator.domain.TokenValidator.TokenValidator;
-import calculator.domain.operation.Add;
+import calculator.domain.validation.CompositeValidator;
+import calculator.domain.validation.NullValidator;
+import calculator.domain.validation.NumberTokenValidator;
+import calculator.domain.validation.TokenValidator;
+import calculator.domain.operation.AddOperator;
 import calculator.domain.operation.Operator;
 import calculator.domain.parser.CommaColonParser;
 import calculator.domain.parser.CustomParser;
@@ -18,17 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class Calculator {
+class CalculatorController {
     //의존성 주입되면 바뀌지않도록 final 이용
     private final Input input;
     private final Output output;
     private final InputValidator inputValidator;
     private final Operator operator;
-    public Calculator() {
+    public CalculatorController() {
         this.input = new Input();
         this.output = new Output();
         this.inputValidator = new InputValidator();
-        this.operator=new Add(); //해당 문제에서 더하기만 수행하기에
+        this.operator=new AddOperator(); //해당 문제에서 더하기만 수행하기에
     }
     public void run() {
         openingMent();
@@ -89,7 +89,7 @@ public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
         try {
-            new Calculator().run();
+            new CalculatorController().run();
         }
         finally {
             Console.close();  //자원정리
