@@ -1,4 +1,4 @@
-package calculator.domain;
+package calculator.domain.validation.input;
 
 public class InputValidator {
     private String str;

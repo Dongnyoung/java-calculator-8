@@ -1,4 +1,4 @@
-package calculator.domain.TokenValidator;
+package calculator.domain.validation.token;
 
 public class NullValidator implements TokenValidator {
     @Override

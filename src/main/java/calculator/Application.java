@@ -1,10 +1,10 @@
 package calculator;
 
-import calculator.domain.InputValidator;
-import calculator.domain.validation.CompositeValidator;
-import calculator.domain.validation.NullValidator;
-import calculator.domain.validation.NumberTokenValidator;
-import calculator.domain.validation.TokenValidator;
+import calculator.domain.validation.input.InputValidator;
+import calculator.domain.validation.token.CompositeValidator;
+import calculator.domain.validation.token.NullValidator;
+import calculator.domain.validation.token.NumberTokenValidator;
+import calculator.domain.validation.token.TokenValidator;
 import calculator.domain.operation.AddOperator;
 import calculator.domain.operation.Operator;
 import calculator.domain.parser.CommaColonParser;
