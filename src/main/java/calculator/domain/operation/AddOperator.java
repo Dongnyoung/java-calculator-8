@@ -1,6 +1,6 @@
 package calculator.domain.operation;
 
-public class Add implements Operator {
+public class AddOperator implements Operator {
     private int sum;
 
     @Override
