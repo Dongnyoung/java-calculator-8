@@ -75,8 +75,7 @@ Application →Input (입력) →InputValidator (입력 검증)
 
 ## 2. 패키지 구조
 
-![pakage.png](/Users/idongnyeong/Desktop/스크린샷 2025-10-19 오후 4.57.17.png)
-
+<img width="366" height="541" alt="스크린샷 2025-10-19 오후 4 57 17" src="https://github.com/user-attachments/assets/b954e95d-3315-480f-aefb-03aaa1fa2ff9" />
 
 `InputValidator`와 `TokenValidator`를 분리한 이유
 - 입력 문자열 검증과 토큰 검증은 성격이 완전히 다르기 때문이다.
@@ -139,7 +138,8 @@ Parser는 전략패턴을 사용하였는데 TokenValidator에서는 왜 컴포�
 
 ## 4. 전체 클래스 구조
 
-![스크린샷 2025-10-18 오후 10.59.17.png](attachment:cb5e23f9-71dc-41c5-8a0a-93ad56ef54da:스크린샷_2025-10-18_오후_10.59.17.png)
+<img width="1181" height="578" alt="스크린샷 2025-10-18 오후 10 59 17" src="https://github.com/user-attachments/assets/0de28166-0df9-4b04-960b-8f9da6c82b7a" />
+
 
 
 ## 5. 회고
