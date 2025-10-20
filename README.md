@@ -75,7 +75,7 @@ Application →Input (입력) →InputValidator (입력 검증)
 
 ## 2. 패키지 구조
 
-<img width="366" height="541" alt="스크린샷 2025-10-19 오후 4 57 17" src="https://github.com/user-attachments/assets/b954e95d-3315-480f-aefb-03aaa1fa2ff9" />
+<img width="383" height="612" alt="스크린샷 2025-10-20 오전 9 59 40" src="https://github.com/user-attachments/assets/3631a035-21b7-4c17-bbbd-bcc353c1600b" />
 
 `InputValidator`와 `TokenValidator`를 분리한 이유
 - 입력 문자열 검증과 토큰 검증은 성격이 완전히 다르기 때문이다.
